@@ -1,0 +1,44 @@
+package modules
+
+import (
+    "github.com/elc49/drago/ui/types"
+)
+
+templ NavBar(headerLinks []types.HeaderLink) {
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-5 bg-transparent">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+           <!-- Logo -->
+           <a class="flex items-center gap-2" href="/">
+               <div class="flex items-center gap-2 hover:opacity-80">
+                   <img class="hover:opacity-90 transition-opacity size-8 inset-0 object-cover" src="/assets/images/drago.svg" />
+               </div>
+           </a>
+
+           <!-- Desktop Nav -->
+           <div class="hidden md:flex items-center gap-8">
+               for _, link := range headerLinks {
+                   <a class="text-sm font-semibold text-primary transition-colors duration-200" href={ link.Href }>{ link.Label }</a>
+               }
+           </div>
+
+           <!-- Cta -->
+           <div class="hidden md:flex items-center gap-3">
+               <a href="#pricing" class="text-sm font-semibold text-primary hover:text-primary-dark transition-colors">Try Drago</a>
+           </div>
+
+           <!-- Mobile Nav -->
+        </div>
+    </nav>
+    <script>
+        document.addEventListener("scroll", function() {
+            const nav = document.querySelector("#main-nav")
+            if (window.scrollY > 10) {
+                nav.classList.add("nav-glass", "shadow-blue-sm", "py-3")
+                nav.classList.remove("bg-transparent", "py-5")
+            } else {
+                nav.classList.add("bg-transparent", "py-5")
+                nav.classList.remove("nav-glass", "shadow-blue-sm", "py-3")
+            }
+        })
+    </script>
+}
