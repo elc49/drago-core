@@ -7,17 +7,17 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/elc49/drago/assets"
-	"github.com/elc49/drago/ui/pages"
+	"github.com/elc49/drago/ui/pages/landing"
 	"github.com/templui/templui/utils"
 )
 
 func main() {
 	mux := http.NewServeMux()
 	setupAssetsRoutes(mux)
-	mux.Handle("GET /", templ.Handler(pages.Landing()))
+	mux.Handle("GET /", templ.Handler(landing.Landing()))
 
-	fmt.Println("Server is running on http://localhost:8090")
-	log.Fatalln(http.ListenAndServe(":8090", mux))
+	fmt.Println("Server is running on http://localhost:8080")
+	log.Fatalln(http.ListenAndServe(":8080", mux))
 }
 
 func setupAssetsRoutes(mux *http.ServeMux) {
