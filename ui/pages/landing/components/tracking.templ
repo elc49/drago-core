@@ -1,0 +1,92 @@
+package components
+
+import (
+    "github.com/templui/templui/components/icon"
+)
+
+type stat struct {
+    value string
+    label string
+    icon templ.Component
+}
+
+var stats = []stat{
+    {
+        value: "340+",
+        label: "Routes Covered",
+        icon: icon.Route(icon.Props{Class: "size-6 text-gray-950"}),
+    },
+    {
+        value: "180K",
+        label: "Daily Riders",
+        icon: icon.Users(icon.Props{Class: "size-6 text-gray-950"}),
+    },
+    {
+        value: "98.4%",
+        label: "System Uptime",
+        icon: icon.ShieldCheck(icon.Props{Class: "size-6 text-gray-950"}),
+    },
+    {
+        value: "< 5ms",
+        label: "Route Refresh",
+        icon: icon.Zap(icon.Props{Class: "size-6 text-gray-950"}),
+    },
+}
+
+templ Tracking() {
+    <section id="features" class="py-28 px-6 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="inline-block text-blue-700 text-xs font-semibold tracking-[0.3em] uppercase bg-blue-50 px-4 py-1.5 rounded-full mb-4">
+                    Real-Time Intelligence
+                </span>
+                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-light text-foreground leading-tight">
+                    Every route. Every bus.<br />
+                    <span class="font-semibold italic">
+                       Always live.
+                   </span>
+                </h2>
+            </div>
+
+            <!-- Stats row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal reveal-delay-1">
+                for _, s := range stats {
+                    <div class="bento-item rounded-3xl p-6 text-center">
+                        <div class="size-10 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                            @s.icon
+                        </div>
+                        <p class="text-2xl font-display font-semibold text-foreground">
+                            { s.value }
+                        </p>
+                        <p class="text-xs text-gray-500 mt-1 font-medium">
+                            { s.label }
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <script>
+        function scrollRevealInit() {
+            const reveals = document.querySelectorAll(".reveal")
+            // Start scoll-in-view observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // What to do when section is coming into view?
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible')
+                    }
+                })
+                // Trigger options :-
+                // - when 10% of the element is in view,
+                // - optional margin before triggering
+            }, { threshold: 1.0, rootMargin: '0px 0px -40px 0px' })
+
+            // Attach observer onto revealing section(s)
+            reveals.forEach(reveal => observer.observe(reveal))
+        }
+
+        document.addEventListener("DOMContentLoaded", scrollRevealInit)
+    </script>
+}
