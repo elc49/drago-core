@@ -33,11 +33,11 @@ templ NavBar(headerLinks []types.HeaderLink) {
         function styleNavHeaderOnScroll() {
             const nav = document.querySelector("#main-nav")
             if (window.scrollY > 10) {
-                nav.classList.add("nav-glass", "shadow-sm", "py-3")
+                nav.classList.add("nav-glass", "shadow-blue-700", "py-3")
                 nav.classList.remove("bg-transparent", "py-5")
             } else {
+                nav.classList.remove("nav-glass", "shadow-blue-700", "py-3")
                 nav.classList.add("bg-transparent", "py-5")
-                nav.classList.remove("nav-glass", "shadow-sm", "py-3")
             }
         }
 

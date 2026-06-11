@@ -2,39 +2,18 @@ package components
 
 import (
     "github.com/templui/templui/components/icon"
+    "github.com/elc49/drago/ui/pages/landing/css"
 )
 
-type stat struct {
-    value string
-    label string
-    icon templ.Component
-}
-
-var stats = []stat{
-    {
-        value: "340+",
-        label: "Routes Covered",
-        icon: icon.Route(icon.Props{Class: "size-6 text-gray-950"}),
-    },
-    {
-        value: "180K",
-        label: "Daily Riders",
-        icon: icon.Users(icon.Props{Class: "size-6 text-gray-950"}),
-    },
-    {
-        value: "98.4%",
-        label: "System Uptime",
-        icon: icon.ShieldCheck(icon.Props{Class: "size-6 text-gray-950"}),
-    },
-    {
-        value: "< 5ms",
-        label: "Route Refresh",
-        icon: icon.Zap(icon.Props{Class: "size-6 text-gray-950"}),
-    },
-}
+const (
+    GlassCardClass = "bg-gray-200 backdrop-blur-lg border border-gray-200 shadow-sm"
+)
 
 templ Tracking() {
-    <section id="features" class="py-28 px-6 relative overflow-hidden">
+    <section id="features" class="py-28 px-6 bg-gray-50 relative overflow-hidden">
+        <!-- Subtle background -->
+        <div class="absolute inset-0 bg-gradient-to-b from-background via-gray-100 to-background pointer-events-none" />
+
         <div class="max-w-7xl mx-auto relative z-10">
             <!-- Header -->
             <div class="text-center mb-16 reveal">
@@ -64,6 +43,121 @@ templ Tracking() {
                         </p>
                     </div>
                 }
+            </div>
+
+            <!-- Bento grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                <!-- Large map card -->
+                <div class="md:col-span-7 bento-item rounded-4xl overflow-hidden reveal reveal-delay-1 group min-h-[400px] relative">
+                    <div class="relative h-full min-h-[380px] image-zoom-container">
+                        <img src="/assets/images/traffic_aerial.png" alt="Aerial traffic" class="object-cover h-full w-full" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-70 via-gray-10 to-transparent" />
+                    </div>
+                    <!-- Live overlay UI -->
+                    <div class="absolute inset-0 p-6 flex flex-col justify-between">
+                        <div class="flex items-start justify-between">
+                            <div class={ GlassCardClass, "rounded-2xl px-4 py-2.5 flex items-center gap-2" }>
+                                <span class="size-2 rounded-full bg-green-400 live-dot" />
+                                <span class="text-xs font-bold text-foreground">Live Map &bull; Nairobi CBD</span>
+                            </div>
+                            <div class={ GlassCardClass, "rounded-2xl px-3 py-2 text-xs font-semibold text-primary" }>
+                                23 buses nearby
+                            </div>
+                        </div>
+
+                        <!-- Mock bus pins -->
+                        <div class="relative flex-1 mx-4 my-2">
+                            for _, pin := range mockPins {
+                                <div class={ "absolute", css.AnimateBounce() } style={ map[string]string{"top": pin.top, "left": pin.left, "animation-delay": pin.delay} }>
+                                    <div class="bg-gray-950 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-green-sm whitespace-nowrap">
+                                        { pin. route }
+                                    </div>
+                                    <div class="size-2 bg-gray-950 rounded-full mx-auto mt-0.5 opacity-80" />
+                                </div>
+                            }
+                        </div>
+
+                        <div class={ GlassCardClass, "rounded-3xl p-4" }>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-bold text-foreground">Next arrivals at Kencom</span>
+                                <span class="text-xs text-primary font-semibold hover:cursor-pointer">View all &rarr;</span>
+                            </div>
+                            <div class="flex gap-3 overflow-x-auto pb-1">
+                                for _, bus := range mockBusRoutes {
+                                    <div class="flex-shrink-0 bg-gray-50 rounded-2xl px-3 py-2 min-w-[110px]">
+                                        <p class="text-xs font-bold text-blue-700">{ bus.route }</p>
+                                        <p class={ "text-sm font-semibold text-foreground", css.AnimateEtaPulse() }>{ bus.timeline }</p>
+                                        <p class="text-[10px] text-gray-500">{ bus.seats }</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right column -->
+                <div class="md:col-span-5 flex flex-col gap-5">
+                    <!-- Notification card -->
+                    <div class="bento-item rounded-4xl p-6 reveal reveal-delay-2 flex-1">
+                        <div class="flex items-center mb-5 gap-3">
+                            <div class="size-10 bg-blue-50 rounded-2xl flex items-center justify-center">
+                                @icon.Bell(icon.Props{Class: "size-6 text-current"})
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-foreground text-sm">
+                                    Smart Alerts
+                                </h3>
+                                <p class="text-xs text-gray-500">
+                                    Get notified before your bus leaves
+                                </p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            for _, notif := range mockNotifs {
+                                <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-2xl">
+                                    {{ isUrgent := notif.notifType == "urgent" }}
+                                    {{ isWarning := notif.notifType == "warn" }}
+                                    <div class={ "size-2 rounded-full mt-1.5 flex-shrink-0", templ.KV("bg-green-500", isUrgent), templ.KV("bg-yellow-500", isWarning), templ.KV("bg-blue-400", !isUrgent && !isWarning) } />
+                                    <div>
+                                        <p class="text-xs font-medium text-foreground leading-relaxed">
+                                            { notif.message }
+                                        </p>
+                                        <p class="text-[10px] text-gray-500 mt-0.5">
+                                            { notif.timeline }
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Fare estimator card -->
+                    <div class="bento-item rounded-4xl p-6 reveal reveal-delay-3">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="size-10 bg-blue-50 rounded-2xl flex items-center justify-center">
+                                @icon.Banknote(icon.Props{Class: "size-6 text-current"})
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-foreground text-sm">Fare Estimator</h3>
+                                <p class="text-xs text-gray-500">Always know what to pay</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            for _, fare := range mockRoutePrices {
+                                <div class="flex items-center justify-between p-2.5 rounded-xl hover:bg-gray-50 transition-colors">
+                                    <div class="flex items-center gap-2">
+                                        <div class="size-1.5 rounded-full bg-current" />
+                                        <span class="text-xs text-foreground font-medium">{ fare.from } &rarr; { fare.to }</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-xs text-gray-500">{ fare.duration }</span>
+                                        <span class="text-xs font-bold text-current bg-gray-50 px-2 py-1 rounded-lg">{ fare.fare }</span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
