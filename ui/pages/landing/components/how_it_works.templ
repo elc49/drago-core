@@ -1,0 +1,142 @@
+package components
+
+import (
+    "fmt"
+    "github.com/templui/templui/components/icon"
+    "github.com/elc49/drago/ui/pages/landing/css"
+)
+
+templ HowItWorks() {
+    <section id="how-it-works" class="py-28 px-6 bg-gray-50 relative overflow-hidden">
+        <!-- Background accent -->
+        <div class="absolute right-0 top-0 size-[500px] bg-blue-50 rounded-full blur-[120px] opacity-50 pointer-events-none" />
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left - steps -->
+                <div>
+                    <div class="mb-12 reveal">
+                        <span class="inline-block text-blue-700 text-xs font-bold tracking-[0.3em] uppercase bg-blue-50 px-4 py-1.5 rounded-full mb-4">
+                            For Commuters
+                        </span>
+                        <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-light text-current leading-tight">
+                            From stage to seat<br />
+                            <span class="font-semibold italic">
+                                in three taps.
+                            </span>
+                        </h2>
+                    </div>
+
+                    <div class="space-y-0 relative">
+                        <!-- Connector line -->
+                        <div class="absolute left-6 top-12 bottom-12 w-[1px] bg-gray-100" aria-hidden="true">
+                            <div class="absolute top-0 left-0 w-full bg-gradient-to-b from-gray-300 to-gray-200 h-full origin-top" style="transform: scaleY(1)" />
+                        </div>
+
+                        for i, step := range onboardingSteps {
+                            <div class={ "relative flex gap-6 pb-10 reveal", fmt.Sprintf("reveal-delay-%d", i+1) }>
+                                <!-- Icon circle -->
+                                <div class={ "relative z-10 size-12 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-blue-sm bg-white border border-blue-100", step.color }>
+                                    @step.icon
+                                </div>
+
+                                <!-- Content -->
+                                <div class="flex-1 pt-1">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <span class="text-[10px] font-bold tracking-[0.3em] text-gray-500 uppercase">
+                                            { step.number }
+                                        </span>
+                                        <h3 class="font-semibold text-lg text-current">
+                                            { step.title }
+                                        </h3>
+                                    </div>
+                                    <p class="text-gray-500 text-sm leading-relaxed">
+                                        { step.description }
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="reveal reveal-delay-4">
+                        <a href="#pricing" class="inline-flex items-center gap-2 bg-black text-white font-semibold px-7 py-3.5 rounded-full hover:bg-gray-800 transition-all shadow-blue-md">
+                            @icon.ArrowDownToLine(icon.Props{Class: "size-6"})
+                            Install App
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right column - app mock visual -->
+                <div class="relative reveal reveal-delay-2">
+                    <!-- Decorative rings -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div class="size-[380px] rounded-full border border-blue-200 opacity-30" />
+                        <div class="absolute size-[460px] rounded-full border border-blue-200 opacity-30" />
+                    </div>
+
+                    <!-- Main image -->
+                    <div class="relative mx-auto w-fit">
+                        <div class="relative rounded-4xl overflow-hidden shadow-blue-xl w-[280px] md:w-[320px] mx-auto">
+                            <img src="/assets/images/user_phone.png" alt="User phone" class="object-cover w-[320] h-[560]" />
+
+                            <!-- Phone frame overlay -->
+                            <div class="absolute inset-0 rounded-5xl border-2 border-white/40 pointer-events-none" />
+                            <!-- Status bar -->
+                            <div class="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-gray-50/60 to-transparent flex items-center justify-between px-5 pt-2">
+                                <span class="text-white text-[10px] font-semibold">
+                                    9:41
+                                </span>
+                                <div class="flex gap-1 items-center">
+                                    <div class="w-4 h-2 border border-white/60 rounded-sm">
+                                        <div class="w-3 h-full bg-white/80 rounded-sm" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- App UI overlay -->
+                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                <div class={ css.GlassCard, "rounded-2xl p-3" }>
+                                    <p class="text-xs font-bold text-current mb-1">
+                                        Route 46 &bull; Westlands
+                                    </p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-2xl font-display font-semibold text-current">4 min</span>
+                                        <span class="text-xs text-green-600 font-semibold bg-green-50 px-2 py-0.5 rounded-full">On time</span>
+                                    </div>
+                                    <div class="flex items-center gap-1 mt-1.5">
+                                        for i := range 8 {
+                                            {{ isTrue := i < 5 }}
+                                            <div class={ "h-1.5 flex-1 rounded-full", templ.KV("bg-blue-400", isTrue), templ.KV("bg-blue-100", !isTrue) } />
+                                        }
+                                    </div>
+                                    <p class="text-[10px] text-gray-500 mt-1">
+                                        5 of 8 seats occupied
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating badge -->
+                        <div class={ css.GlassCard, "absolute -right-8 top-1/4 rounded-2xl p-3 shadow-blue-md w-36" }>
+                            <div class="flex items-center gap-2 mb-1">
+                                @icon.Star(icon.Props{Class: "size-6 fill-orange-700"})
+                                <span class="text-xs font-bold">
+                                    4.8 / 5.0
+                                </span>
+                            </div>
+                            <p class="text-[10px] text-gray-500">12,400+ reviews</p>
+                        </div>
+
+                        <!-- Floating badge 2 -->
+                        <div class={ "absolute -left-10 bottom-1/3 rounded-2xl p-3 shadow-blue-md w-40", css.GlassCard }>
+                            <p class="text-[10px] text-gray-500 mb-0.5">Saved today</p>
+                            <p class="text-sm font-bold text-green-700">16 min waiting</p>
+                            <div class="mt-1.5 w-full bg-green-100 rounded-full h-1.5">
+                                <div class="bg-green-500 h-1.5 rounded-full w-[70%]" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

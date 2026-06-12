@@ -4,7 +4,7 @@ import (
 	"github.com/templui/templui/components/icon"
 )
 
-var stats = []Stat{
+var stats = []stat{
 	{
 		value: "340+",
 		label: "Routes Covered",
@@ -27,7 +27,7 @@ var stats = []Stat{
 	},
 }
 
-var mockPins = []BusPin{
+var mockPins = []busPin{
 	{
 		top:   "25%",
 		left:  "30%",
@@ -54,7 +54,7 @@ var mockPins = []BusPin{
 	},
 }
 
-var mockBusRoutes = []BusRoute{
+var mockBusRoutes = []busRoute{
 	{
 		route:    "Route 46",
 		timeline: "3 min",
@@ -72,7 +72,7 @@ var mockBusRoutes = []BusRoute{
 	},
 }
 
-var mockNotifs = []Notif{
+var mockNotifs = []notif{
 	{
 		message:   "Route 46 arriving in 4 min at Westlands",
 		timeline:  "Just now",
@@ -90,7 +90,7 @@ var mockNotifs = []Notif{
 	},
 }
 
-var mockRoutePrices = []Fare{
+var mockRoutePrices = []fare{
 	{
 		from:     "Westlands",
 		to:       "CBD",
@@ -108,5 +108,29 @@ var mockRoutePrices = []Fare{
 		to:       "GPO",
 		fare:     "KES 100",
 		duration: "45min",
+	},
+}
+
+var onboardingSteps = []onboardingStep{
+	{
+		number:      "01",
+		title:       "Pick your stage",
+		description: "Type your nearest bus stage or tap it on the map. Drago can find bus stops in your city",
+		icon:        icon.MapPin(icon.Props{Class: "size-6"}),
+		color:       "bg-blue-50 text-blue-700",
+	},
+	{
+		number:      "02",
+		title:       "See your options",
+		description: "Instantly see every bus on your route — ETAs, current occupancy, and the cheapest fare.",
+		icon:        icon.Eye(icon.Props{Class: "size-6"}),
+		color:       "accent-current/10 accent-black",
+	},
+	{
+		number:      "03",
+		title:       "Board with confidence",
+		description: "Pay what you already know. Get a ping when your bus is nearby. Walk to the stage, board.",
+		icon:        icon.CircleCheck(icon.Props{Class: "size-6"}),
+		color:       "bg-green-50 text-green-700",
 	},
 }

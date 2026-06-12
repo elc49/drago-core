@@ -2,34 +2,42 @@ package components
 
 import "github.com/a-h/templ"
 
-type Stat struct {
+type stat struct {
 	value string
 	label string
 	icon  templ.Component
 }
 
-type BusPin struct {
+type busPin struct {
 	top   string
 	left  string
 	route string
 	delay string
 }
 
-type BusRoute struct {
+type busRoute struct {
 	route    string
 	timeline string
 	seats    string
 }
 
-type Notif struct {
+type notif struct {
 	message   string
 	timeline  string
 	notifType string
 }
 
-type Fare struct {
+type fare struct {
 	from     string
 	to       string
 	duration string
 	fare     string
+}
+
+type onboardingStep struct {
+	number      string
+	title       string
+	description string
+	icon        templ.Component
+	color       string
 }
