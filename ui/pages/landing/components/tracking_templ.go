@@ -82,7 +82,7 @@ func Tracking() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</div><!-- Bento grid --><div class=\"grid grid-cols-1 md:grid-cols-12 gap-5\"><!-- Large map card --><div class=\"md:col-span-7 bento-item rounded-4xl overflow-hidden reveal reveal-delay-1 group min-h-[400px] relative\"><div class=\"relative h-full min-h-[380px] image-zoom-container\"><img src=\"/assets/images/traffic_aerial.png\" alt=\"Aerial traffic\" class=\"object-cover h-full w-full\"><div class=\"absolute inset-0 bg-gradient-to-t from-gray-70 via-gray-10 to-transparent\"></div></div><!-- Live overlay UI --><div class=\"absolute inset-0 p-6 flex flex-col justify-between\"><div class=\"flex items-start justify-between\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</div><!-- Bento grid --><div class=\"grid grid-cols-1 md:grid-cols-12 gap-5\"><!-- Large map card --><div class=\"md:col-span-7 bento-item rounded-4xl overflow-hidden reveal reveal-delay-1 group min-h-[400px] relative\"><div class=\"relative h-full min-h-[380px] image-zoom-container\"><img src=\"/assets/images/traffic_aerial.png\" alt=\"Aerial traffic\" class=\"object-cover size-full\"><div class=\"absolute inset-0 bg-gradient-to-t from-gray-70 via-gray-10 to-transparent\"></div></div><!-- Live overlay UI --><div class=\"absolute inset-0 p-6 flex flex-col justify-between\"><div class=\"flex items-start justify-between\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
