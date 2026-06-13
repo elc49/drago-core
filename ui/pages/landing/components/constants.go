@@ -1,10 +1,15 @@
 package components
 
 import (
+	"github.com/a-h/templ"
 	"github.com/templui/templui/components/icon"
 )
 
-var stats = []stat{
+var stats = []struct {
+	value string
+	label string
+	icon  templ.Component
+}{
 	{
 		value: "340+",
 		label: "Routes Covered",
@@ -27,7 +32,12 @@ var stats = []stat{
 	},
 }
 
-var mockPins = []busPin{
+var mockPins = []struct {
+	top   string
+	left  string
+	route string
+	delay string
+}{
 	{
 		top:   "25%",
 		left:  "30%",
@@ -54,7 +64,11 @@ var mockPins = []busPin{
 	},
 }
 
-var mockBusRoutes = []busRoute{
+var mockBusRoutes = []struct {
+	route    string
+	timeline string
+	seats    string
+}{
 	{
 		route:    "Route 46",
 		timeline: "3 min",
@@ -72,7 +86,11 @@ var mockBusRoutes = []busRoute{
 	},
 }
 
-var mockNotifs = []notif{
+var mockNotifs = []struct {
+	message   string
+	timeline  string
+	notifType string
+}{
 	{
 		message:   "Route 46 arriving in 4 min at Westlands",
 		timeline:  "Just now",
@@ -90,7 +108,12 @@ var mockNotifs = []notif{
 	},
 }
 
-var mockRoutePrices = []fare{
+var mockRoutePrices = []struct {
+	from     string
+	to       string
+	duration string
+	fare     string
+}{
 	{
 		from:     "Westlands",
 		to:       "CBD",
@@ -111,7 +134,13 @@ var mockRoutePrices = []fare{
 	},
 }
 
-var onboardingSteps = []onboardingStep{
+var onboardingSteps = []struct {
+	number      string
+	title       string
+	description string
+	icon        templ.Component
+	color       string
+}{
 	{
 		number:      "01",
 		title:       "Pick your stage",
