@@ -1,10 +1,6 @@
 package modules
 
-import (
-    "github.com/elc49/drago/ui/types"
-)
-
-templ NavBar(headerLinks []types.HeaderLink) {
+templ NavBar(headerLinks []struct{Href string; Label string}) {
     <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-5">
         <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
            <!-- Logo -->
