@@ -2,29 +2,7 @@ package layouts
 
 import (
     "github.com/elc49/drago/ui/modules"
-    "github.com/elc49/drago/ui/types"
 )
-
-var headerLinks = []types.HeaderLink{
-    {
-        Href: "#features",
-        Label: "Features",
-    },
-    {
-        Href: "#how-it-works",
-        Label: "How It Works",
-    },
-    {
-        Href: "#fleet",
-        Label: "For Fleet",
-    },
-    {
-        Href: "#pricing",
-        Label: "Pricing",
-    },
-}
-
-
 
 templ BaseLayout() {
     <!DOCTYPE html>
@@ -37,6 +15,29 @@ templ BaseLayout() {
         </head>
         <body class="h-full">
             <div class="flex flex-col h-full">
+                {{
+                    headerLinks := []struct{
+                        Href string
+                        Label string
+                    }{
+                        {
+                            Href: "#features",
+                            Label: "Features",
+                        },
+                        {
+                            Href: "#how-it-works",
+                            Label: "How It Works",
+                        },
+                        {
+                            Href: "#fleet",
+                            Label: "For Fleet",
+                        },
+                        {
+                            Href: "#pricing",
+                            Label: "Pricing",
+                        },
+                    }
+                }}
                 @modules.NavBar(headerLinks)
                 <main class="flex-1">
                     { children... }

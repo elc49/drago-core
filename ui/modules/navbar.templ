@@ -1,11 +1,7 @@
 package modules
 
-import (
-    "github.com/elc49/drago/ui/types"
-)
-
-templ NavBar(headerLinks []types.HeaderLink) {
-    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-5 bg-transparent">
+templ NavBar(headerLinks []struct{Href string; Label string}) {
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-5">
         <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
            <!-- Logo -->
            <a class="flex items-center gap-2" href="/">
@@ -23,22 +19,24 @@ templ NavBar(headerLinks []types.HeaderLink) {
 
            <!-- Cta -->
            <div class="hidden md:flex items-center">
-               <a href="#pricing" class="bg-primary text-sm font-semibold text-white px-5 py-2.5 hover:bg-primary-dark duration-200 rounded-full">Try Drago</a>
+               <a href="#pricing" class="bg-black text-sm font-semibold text-white px-5 py-2.5 hover:bg-gray-800 duration-200 rounded-full">Try Drago</a>
            </div>
 
            <!-- Mobile Nav -->
         </div>
     </nav>
     <script>
-        document.addEventListener("scroll", function() {
+        function styleNavHeaderOnScroll() {
             const nav = document.querySelector("#main-nav")
             if (window.scrollY > 10) {
-                nav.classList.add("nav-glass", "shadow-blue-sm", "py-3")
+                nav.classList.add("nav-glass", "shadow-blue-700", "py-3")
                 nav.classList.remove("bg-transparent", "py-5")
             } else {
+                nav.classList.remove("nav-glass", "shadow-blue-700", "py-3")
                 nav.classList.add("bg-transparent", "py-5")
-                nav.classList.remove("nav-glass", "shadow-blue-sm", "py-3")
             }
-        })
+        }
+
+        document.addEventListener("scroll", styleNavHeaderOnScroll)
     </script>
 }

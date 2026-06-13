@@ -10,27 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"github.com/elc49/drago/ui/modules"
-	"github.com/elc49/drago/ui/types"
 )
-
-var headerLinks = []types.HeaderLink{
-	{
-		Href:  "#features",
-		Label: "Features",
-	},
-	{
-		Href:  "#how-it-works",
-		Label: "How It Works",
-	},
-	{
-		Href:  "#fleet",
-		Label: "For Fleet",
-	},
-	{
-		Href:  "#pricing",
-		Label: "Pricing",
-	},
-}
 
 func BaseLayout() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -56,6 +36,27 @@ func BaseLayout() templ.Component {
 		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"en\" class=\"h-full\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Your Urban Commute Partner</title><link href=\"/assets/css/styles.css\" rel=\"stylesheet\"></head><body class=\"h-full\"><div class=\"flex flex-col h-full\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
+		}
+		headerLinks := []struct {
+			Href  string
+			Label string
+		}{
+			{
+				Href:  "#features",
+				Label: "Features",
+			},
+			{
+				Href:  "#how-it-works",
+				Label: "How It Works",
+			},
+			{
+				Href:  "#fleet",
+				Label: "For Fleet",
+			},
+			{
+				Href:  "#pricing",
+				Label: "Pricing",
+			},
 		}
 		templ_7745c5c3_Err = modules.NavBar(headerLinks).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {

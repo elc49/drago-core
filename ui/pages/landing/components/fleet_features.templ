@@ -1,0 +1,200 @@
+package components
+
+import (
+    "fmt"
+    "github.com/templui/templui/components/icon"
+    "github.com/elc49/drago/ui/pages/landing/css"
+)
+
+templ FleetFeatures() {
+    <section id="fleet" class="py-28 px-6 bg-gray-50 relative overflow-hidden">
+        <!-- Background blob -->
+        <div class="absolute right-0 bottom-0 size-[500px] bg-blue-50 rounded-full blur-[120px] opacity-40 pointer-events-none" />
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Header -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16">
+                <div class="lg:col-span-7 reveal">
+                    <span class="inline-block text-blue-700 text-xs font-bold tracking-[0.3em] uppercase bg-blue-100 px-4 py-1.5 rounded-full mb-4">
+                        For Fleet Owners & SACCOs
+                    </span>
+                    <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-light leading-tight">
+                        Your fleet. Your routes.<br />
+                        <span class="font-semibold italic">
+                            Your earnings, maximised.
+                        </span>
+                    </h2>
+                </div>
+                <div class="lg:col-span-5 reveal reveal-delay-1">
+                    <p class="text-gray-500 leading-relaxed border-l-2 border-blue-200 pl-5">
+                        Drago gives SACCO managers and individual vehicle owners a full command center - from live GPS to daily revenue reports, all in one dashboard.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Asymmetric grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                <!-- Large feature - fleet map -->
+                <div class="md:col-span-8 bento-item rounded-4xl overflow-hidden reveal reveal-delay-2 min-h-[360px] relative group">
+                    <div class="relative h-full min-h-[340px] image-zoom-container">
+                        <img src="/assets/images/bus_stage.png" alt="Bus stage" class="object-cover size-full" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-blue-900/75 via-blue-900/20 to-transparent" />
+                    </div>
+                    <div class="absolute inset-0 p-7 flex flex-col justify-between">
+                        <div class="flex items-start justify-between">
+                            <div class={ "rounded-2xl px-4 py-2.5", css.GlassCard }>
+                                <span class="text-xs font-bold">Live Fleet View</span>
+                            </div>
+                            <div class="flex gap-2">
+                                {{
+                                    activeStatuses := []struct{
+                                        label string
+                                        color string
+                                    }{
+                                        {
+	                                    	label: "14 active",
+	                                    	color: "bg-green-100 text-green-700",
+	                                    },
+	                                    {
+	                                    	label: "3 Idle",
+	                                    	color: "bg-orange-100 text-orange-700",
+	                                    },
+                                    }
+                                }}
+                                for _, status := range activeStatuses {
+                                    <span class={ fmt.Sprintf("text-xs font-semibold px-3 py-1.5 rounded-full %s", status.color) }>
+                                        { status.label }
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <div class={ css.GlassCard, "rounded-3xl p-5" }>
+                            <h3 class="text-xl font-semibold mb-1">
+                                Full fleet visibility, all day
+                            </h3>
+                            <p class="text-sm text-gray-500 leading-relaxed">
+                                Track every vehicle in real time. See which routes are profitable, which drivers are on schedule, and where your buses are right now — from any device.
+                            </p>
+                            <!-- TODO push to /login -->
+                            <a href="#fleet" class="bg-black inline-flex items-center gap-2 mt-4 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-gray-800 transition-colors shadow-gray-sm">
+                                Request Fleet Demo
+                                &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right col -->
+                <div class="md:col-span-4 flex flex-col gap-5">
+                    <!-- Revenue analytics -->
+                    <div class="bento-item rounded-4xl p-6 reveal reveal-delay-2 flex-1">
+                        <div class="size-10 bg-orange-200/50 rounded-2xl flex items-center justify-center mb-4">
+                            @icon.ChartColumnBig(icon.Props{Class: "size-6 text-orange-700"})
+                        </div>
+                        <h3 class="font-semibold text-foreground mb-2">Daily Revenue Report</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed mb-4">
+                            Automatic end-of-day reports per vehicle. See your best routes and busiest hours.
+                        </p>
+                        <!-- Mini chart -->
+                        <div class="flex items-end gap-1.5 h-14">
+                            {{ values := []int{40, 65, 52, 80, 70, 90, 75} }}
+                            for i, v := range values {
+                                {{ isTrue := i == 5 }}
+                                <div class={ templ.KV("bg-blue-700", isTrue), templ.KV("bg-blue-100", !isTrue), "flex-1 rounded-t-sm transition-all" } style={ map[string]string{"height": fmt.Sprintf("%d%%", v)} } />
+                            }
+                        </div>
+                        <div class="flex justify-between mt-1">
+                            {{ daysOfWeek := []string{"M", "T", "W", "T", "F", "S", "S"} }}
+                            for _, day := range daysOfWeek {
+                                <span class="text-[10px] text-gray-500 flex-1 text-center">{ day }</span>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Driver management -->
+                    <div class="bento-item rounded-4xl p-6 reveal reveal-delay-3">
+                        <div class="size-10 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
+                            @icon.Users(icon.Props{Class: "size-6 text-blue-700"})
+                        </div>
+                        <h3 class="font-semibold mb-2">Driver Performance</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed mb-3">
+                            Speed monitoring, trip logs, and passenger ratings — per driver.
+                        </p>
+                        <div class="space-y-2">
+                            {{
+                                drivers := []struct{
+                                    name string
+                                    score int
+                                    trips int
+                                }{
+                                    {
+                                        name: "John Omwami",
+                                        score: 96,
+                                        trips: 8,
+                                    },
+                                    {
+                                        name: "Peter Njugush",
+                                        score: 88,
+                                        trips: 7,
+                                    },
+                                }
+                            }}
+                            for _, driver := range drivers {
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-xs font-semibold">{ driver.name }</p>
+                                        <p class="text-[10px] text-gray-500">{ fmt.Sprintf("%d trips today", driver.trips) }</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-16 h-1.5 bg-blue-100 rounded-full">
+                                            <div class="h-full bg-blue-700 rounded-full" style={ map[string]string{"width": fmt.Sprintf("%d%%", driver.score)} } />
+                                        </div>
+                                        <span class="text-xs font-bold text-blue-700">{ driver.score }</span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom row -->
+                {{
+                    features := []struct{
+                        icon templ.Component
+                        title string
+                        desc string
+                        color string
+                    }{
+                        {
+                            icon: icon.Wifi(icon.Props{Class: "size-6 stroke-blue-700"}),
+                            title: "Offline Mode",
+                            desc: "GPS tracking works even on low-connectivity routes. Data syncs when back online.",
+                            color: "bg-blue-50",
+                        },
+                        {
+                            icon: icon.Smartphone(icon.Props{Class: "size-6 stroke-green-700"}),
+                            title: "M-pesa Integration",
+                            desc: "Collect fares digitally. Reconcile revenue daily via M-Pesa statements.",
+                            color: "bg-green-50",
+                        },
+                        {
+                            icon: icon.Route(icon.Props{Class: "size-6 stroke-gray-700"}),
+                            title: "Route Management",
+                            desc: "Create, Configure, Monitor your routes performance to create predictable and reliable commute patterns.",
+                            color: "accent-dark/10",
+                        },
+                    }
+                }}
+                for i, feature := range features {
+                    <div class={ fmt.Sprintf("md:col-span-4 bento-item rounded-4xl p-6 reveal reveal-delay-%d", i+2) }>
+                        <div class={ fmt.Sprintf("size-10 %s rounded-2xl flex items-center justify-center mb-4", feature.color) }>
+                            @feature.icon
+                        </div>
+                        <h3 class="font-semibold mb-2">{ feature.title }</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">{ feature.desc }</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}

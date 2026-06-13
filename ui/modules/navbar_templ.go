@@ -8,11 +8,10 @@ package modules
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import (
-	"github.com/elc49/drago/ui/types"
-)
-
-func NavBar(headerLinks []types.HeaderLink) templ.Component {
+func NavBar(headerLinks []struct {
+	Href  string
+	Label string
+}) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -33,7 +32,7 @@ func NavBar(headerLinks []types.HeaderLink) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<nav id=\"main-nav\" class=\"fixed top-0 left-0 w-full z-50 transition-all duration-500 py-5 bg-transparent\"><div class=\"max-w-7xl mx-auto px-6 flex items-center justify-between\"><!-- Logo --><a class=\"flex items-center gap-2\" href=\"/\"><div class=\"flex items-center gap-2 hover:opacity-80\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" class=\"size-8 inset-0 hover:opacity-90 transition-opacity\" fill=\"currentColor\" width=\"48\" height=\"48\"><path d=\"M9 15.306v17.388l15 8.683 15-8.683V15.306L24 6.623zM24 2l19 11v22L24 46.001 5 34.998V13zM12.998 19.94l9.003 5.214v10.098h4V25.154l9.002-5.21-2.004-3.462L24 21.69l-8.998-5.213z\"></path></svg></div></a><!-- Desktop Nav --><div class=\"hidden md:flex items-center gap-8\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<nav id=\"main-nav\" class=\"fixed top-0 left-0 w-full z-50 transition-all duration-500 py-5\"><div class=\"max-w-7xl mx-auto px-6 flex items-center justify-between\"><!-- Logo --><a class=\"flex items-center gap-2\" href=\"/\"><div class=\"flex items-center gap-2 hover:opacity-80\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" class=\"size-8 inset-0 hover:opacity-90 transition-opacity\" fill=\"currentColor\" width=\"48\" height=\"48\"><path d=\"M9 15.306v17.388l15 8.683 15-8.683V15.306L24 6.623zM24 2l19 11v22L24 46.001 5 34.998V13zM12.998 19.94l9.003 5.214v10.098h4V25.154l9.002-5.21-2.004-3.462L24 21.69l-8.998-5.213z\"></path></svg></div></a><!-- Desktop Nav --><div class=\"hidden md:flex items-center gap-8\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -45,7 +44,7 @@ func NavBar(headerLinks []types.HeaderLink) templ.Component {
 			var templ_7745c5c3_Var2 templ.SafeURL
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(link.Href)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/modules/navbar.templ`, Line: 20, Col: 112}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/modules/navbar.templ`, Line: 16, Col: 112}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -58,7 +57,7 @@ func NavBar(headerLinks []types.HeaderLink) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(link.Label)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/modules/navbar.templ`, Line: 20, Col: 127}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/modules/navbar.templ`, Line: 16, Col: 127}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -69,7 +68,7 @@ func NavBar(headerLinks []types.HeaderLink) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</div><!-- Cta --><div class=\"hidden md:flex items-center\"><a href=\"#pricing\" class=\"bg-primary text-sm font-semibold text-white px-5 py-2.5 hover:bg-primary-dark duration-200 rounded-full\">Try Drago</a></div><!-- Mobile Nav --></div></nav><script>\n        document.addEventListener(\"scroll\", function() {\n            const nav = document.querySelector(\"#main-nav\")\n            if (window.scrollY > 10) {\n                nav.classList.add(\"nav-glass\", \"shadow-blue-sm\", \"py-3\")\n                nav.classList.remove(\"bg-transparent\", \"py-5\")\n            } else {\n                nav.classList.add(\"bg-transparent\", \"py-5\")\n                nav.classList.remove(\"nav-glass\", \"shadow-blue-sm\", \"py-3\")\n            }\n        })\n    </script>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</div><!-- Cta --><div class=\"hidden md:flex items-center\"><a href=\"#pricing\" class=\"bg-black text-sm font-semibold text-white px-5 py-2.5 hover:bg-gray-800 duration-200 rounded-full\">Try Drago</a></div><!-- Mobile Nav --></div></nav><script>\n        function styleNavHeaderOnScroll() {\n            const nav = document.querySelector(\"#main-nav\")\n            if (window.scrollY > 10) {\n                nav.classList.add(\"nav-glass\", \"shadow-blue-700\", \"py-3\")\n                nav.classList.remove(\"bg-transparent\", \"py-5\")\n            } else {\n                nav.classList.remove(\"nav-glass\", \"shadow-blue-700\", \"py-3\")\n                nav.classList.add(\"bg-transparent\", \"py-5\")\n            }\n        }\n\n        document.addEventListener(\"scroll\", styleNavHeaderOnScroll)\n    </script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
